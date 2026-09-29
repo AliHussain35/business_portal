@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-1">Login History</h3>
+<p class="text-secondary mb-4" style="font-size:0.9rem;">Who logged in, from where, and when — visible to the Owner only</p>
+
+<div class="table-responsive">
+<table class="table table-bordered">
+  <thead><tr><th>User</th><th>Date &amp; Time</th><th>IP Address</th><th>Location</th></tr></thead>
+  <tbody>
+    {% for e in entries %}
+    <tr>
+      <td>{{ e.user_name }}</td>
+      <td>{{ e.logged_in_at }}</td>
+      <td>{{ e.ip_address or "-" }}</td>
+      <td>
+        {% if e.city or e.country %}
+          {{ e.city }}{% if e.city and e.country %}, {% endif %}{{ e.country }}
+        {% else %}
+          <span class="text-secondary">Unknown (local/private network)</span>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

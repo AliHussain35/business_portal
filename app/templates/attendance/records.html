@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-1">Attendance Records</h3>
+<p class="text-secondary mb-4" style="font-size:0.9rem;">Who marked arrival, and when</p>
+
+<form method="get" class="row g-2 mb-3">
+  <div class="col-auto">
+    <input class="form-control" type="date" name="date" value="{{ date_filter or '' }}">
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-primary">Filter</button>
+  </div>
+  {% if date_filter %}
+  <div class="col-auto">
+    <a class="btn btn-outline-secondary" href="{{ url_for('attendance.records') }}">Clear</a>
+  </div>
+  {% endif %}
+</form>
+
+<div class="table-responsive">
+<table class="table table-bordered">
+  <thead><tr><th>Employee</th><th>Date</th><th>Marked At</th></tr></thead>
+  <tbody>
+    {% for e in entries %}
+    <tr>
+      <td>{{ e.user_name }}</td>
+      <td>{{ e.attendance_date }}</td>
+      <td>{{ e.marked_at }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

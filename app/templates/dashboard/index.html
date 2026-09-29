@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-1">Dashboard</h3>
+<p class="text-secondary mb-4" style="font-size:0.9rem;">Overview of cash position, payroll, and pending invoices</p>
+
+<div class="row g-3">
+  <div class="col-md-4">
+    <div class="stat-card">
+      <div class="stat-label">Cash Balance</div>
+      <div class="stat-value">Rs {{ "%.2f"|format(balance) }}</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="stat-card">
+      <div class="stat-label">Unpaid Salaries (this month)</div>
+      <div class="stat-value">{{ unpaid_salaries }}</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="stat-card">
+      <div class="stat-label">Pending Invoices</div>
+      <div class="stat-value">{{ pending_invoices }}</div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex flex-column align-items-center justify-content-center" style="min-height:50vh;">
+  <h3 class="mb-3">Welcome, {{ current_user.name }}</h3>
+  {% if today_entry %}
+    <div class="stat-card text-center" style="border-left-color: var(--success);">
+      <div class="stat-label">Attendance marked for today</div>
+      <div class="stat-value" style="font-size:1.3rem;">{{ today_entry.marked_at }}</div>
+    </div>
+  {% else %}
+    <p class="text-secondary mb-3">You haven't marked your arrival yet today.</p>
+    <form method="post" action="{{ url_for('attendance.do_mark') }}">
+      <button class="btn btn-primary btn-lg px-5">I've Arrived</button>
+    </form>
+  {% endif %}
+</div>
+{% endblock %}

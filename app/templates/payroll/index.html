@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Salary Payments — {{ month }}/{{ year }}</h3>
+
+<div class="table-responsive">
+<table class="table table-bordered bg-white">
+  <thead><tr><th>Employee</th><th>Amount</th><th>Status</th><th>Paid Date</th><th></th></tr></thead>
+  <tbody>
+    {% for p in payments %}
+    <tr>
+      <td>{{ p.employee_name }}</td>
+      <td>Rs {{ "%.2f"|format(p.amount) }}</td>
+      <td>{{ p.status }}</td>
+      <td>{{ p.paid_date or "-" }}</td>
+      <td>
+        {% if p.status == 'unpaid' %}
+        <form method="post" action="{{ url_for('payroll.mark_paid', payment_id=p.id) }}">
+          <input type="date" name="paid_date">
+          <button class="btn btn-sm btn-success">Mark Paid</button>
+        </form>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}
